@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 import socket
 from multiprocessing.dummy import Pool
