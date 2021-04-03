@@ -20,9 +20,8 @@ A simple multi-threaded port scanner, that scans all hosts on a subnet for a spe
 [True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]
 >>> 
 ```
-
-
-
+<br />
+<br />
 ### Getting Private IP
 ```python
 getPrivateIP()
@@ -36,9 +35,8 @@ Returns the current machines private IP address (`192.168.*.*`, `10.0.0.*` etc.)
 '192.168.0.1'
 >>> 
 ```
-
-
-
+<br />
+<br />
 ### Getting Public IP
 ```python
 getPublicIP()
@@ -52,9 +50,8 @@ Returns the current machines public IP address (The one you see from typing `Wha
 '123.123.123.123'
 >>> 
 ```
-
-
-
+<br />
+<br />
 ### Checking Whether Port Is Open
 ```python
 isUp(IP, port, timeout = 0.1)
@@ -71,9 +68,8 @@ Checks if the specified IP address has the specified port open, returns boolean
 True
 >>>
 ```
-
-
-
+<br />
+<br />
 ### Getting MAC Address
 ```python
 getMACAddress()
@@ -87,9 +83,8 @@ Returns the MAC address for the current machine
 'A4:B1:C1:FD:B2:2C'
 >>>
 ```
-
-
-
+<br />
+<br />
 ### Getting Machine Hostname
 ```python
 getHostName()
@@ -103,9 +98,8 @@ Returns the hostname for the current machine
 'Arch'
 >>>
 ```
-
-
-
+<br />
+<br />
 ### Parsing Port Scan
 ```python
 parsePortScan(results, localIP)
