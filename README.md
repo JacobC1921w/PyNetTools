@@ -21,6 +21,8 @@ A simple multi-threaded port scanner, that scans all hosts on a subnet for a spe
 >>> 
 ```
 
+
+
 ### Getting Private IP
 ```python
 getPrivateIP()
@@ -34,6 +36,8 @@ Returns the current machines private IP address (`192.168.*.*`, `10.0.0.*` etc.)
 '192.168.0.1'
 >>> 
 ```
+
+
 
 ### Getting Public IP
 ```python
@@ -49,7 +53,9 @@ Returns the current machines public IP address (The one you see from typing `Wha
 >>> 
 ```
 
-### Checking whether port is open
+
+
+### Checking Whether Port Is Open
 ```python
 isUp(IP, port, timeout = 0.1)
 ```
@@ -66,6 +72,8 @@ True
 >>>
 ```
 
+
+
 ### Getting MAC Address
 ```python
 getMACAddress()
@@ -80,6 +88,8 @@ Returns the MAC address for the current machine
 >>>
 ```
 
+
+
 ### Getting Machine Hostname
 ```python
 getHostName()
@@ -93,6 +103,8 @@ Returns the hostname for the current machine
 'Arch'
 >>>
 ```
+
+
 
 ### Parsing Port Scan
 ```python
