@@ -2,6 +2,8 @@
 A library of networking tools that you can use in your Python3 project
 
 ## Functions:
+
+### Port Scanning
 ```python
 portScan(localIP, port, threads = 10, timeout = 0.1)
 ```
@@ -11,7 +13,7 @@ A simple multi-threaded port scanner, that scans all hosts on a subnet for a spe
 - `threads`: How many threads for mutli-threading
 - `timeout`: Timeout for giving up on response
 
-### Example:
+#### Example:
 ```python
 >>> import PyNetTools
 >>> PyNetTools.portScan(PyNetTools.getPrivateIP(), 80)
@@ -19,12 +21,13 @@ A simple multi-threaded port scanner, that scans all hosts on a subnet for a spe
 >>> 
 ```
 
+### Getting Private IP
 ```python
 getPrivateIP()
 ```
 Returns the current machines private IP address (`192.168.*.*`, `10.0.0.*` etc.)
 
-### Example:
+#### Example:
 ```python
 >>> import PyNetTools
 >>> PyNetTools.getPrivateIP()
@@ -32,12 +35,13 @@ Returns the current machines private IP address (`192.168.*.*`, `10.0.0.*` etc.)
 >>> 
 ```
 
+### Getting Public IP
 ```python
 getPublicIP()
 ```
 Returns the current machines public IP address (The one you see from typing `Whats my IP` into Google)
 
-### Example:
+#### Example:
 ```python
 >>> import PyNetTools
 >>> PyNetTools.getPublicIP()
@@ -45,6 +49,7 @@ Returns the current machines public IP address (The one you see from typing `Wha
 >>> 
 ```
 
+### Checking whether port is open
 ```python
 isUp(IP, port, timeout = 0.1)
 ```
@@ -53,7 +58,7 @@ Checks if the specified IP address has the specified port open, returns boolean
 - `port`: the port to scan
 - `timeout`: Timeout for giving up on response
 
-### Example:
+#### Example:
 ```python
 >>> import PyNetTools
 >>> PyNetTools.isUp("192.168.0.1", 80)
@@ -61,12 +66,13 @@ True
 >>>
 ```
 
+### Getting MAC Address
 ```python
 getMACAddress()
 ```
 Returns the MAC address for the current machine
 
-### Example:
+#### Example:
 ```python
 >>> import PyNetTools
 >>> PyNetTools.getMACAddress()
@@ -74,12 +80,13 @@ Returns the MAC address for the current machine
 >>>
 ```
 
+### Getting Machine Hostname
 ```python
 getHostName()
 ```
 Returns the hostname for the current machine
 
-### Example:
+#### Example:
 ```python
 >>> import PyNetTools
 >>> PyNetTools.getHostName()
@@ -87,6 +94,7 @@ Returns the hostname for the current machine
 >>>
 ```
 
+### Parsing Port Scan
 ```python
 parsePortScan(results, localIP)
 ```
@@ -94,7 +102,7 @@ Returns a multidimensional array containing hosts that have the specified port i
 - `results`: the list that you get from `portScan()`
 - `localIP`: Your machines local IP address (You can get it from `getPrivateIP()`)
 
-### Example:
+#### Example:
 ```python
 >>> import PyNetTools
 >>> PyNetTools.parsePortScan(PyNetTools.portScan(PyNetTools.getPrivateIP(), 80), PyNetTools.getPrivateIP())
