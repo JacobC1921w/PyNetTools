@@ -7,11 +7,11 @@ A library of networking tools that you can use in your Python3 project
 ```python
 portScan(localIP, port, threads = 10, timeout = 0.1)
 ```
-A simple multi-threaded port scanner, that scans all hosts on a subnet for a specific port, returns a list, of which you need to use `parsePortScan()` to comprehend
-- `localIP`: Your machines local IP address (You can get it from `getPrivateIP()`)
-- `port`: The port to scan
-- `threads`: How many threads for mutli-threading
-- `timeout`: Timeout for giving up on response
+A simple multi-threaded port scanner, that scans all hosts on a subnet for a specific port, returns a list, of which you need to use `parsePortScan()` to comprehend (ret: array)
+- `localIP`: (str) Your machines local IP address (You can get it from `getPrivateIP()`)
+- `port`: (int) The port to scan
+- `threads`: (int) How many threads for mutli-threading
+- `timeout`: (float) Timeout for giving up on response
 
 #### Example:
 ```python
@@ -28,7 +28,7 @@ A simple multi-threaded port scanner, that scans all hosts on a subnet for a spe
 ```python
 getPrivateIP()
 ```
-Returns the current machines private IP address (`192.168.*.*`, `10.0.0.*` etc.)
+Returns the current machines private IP address (`192.168.*.*`, `10.0.0.*` etc.) (ret: str)
 
 #### Example:
 ```python
@@ -45,7 +45,7 @@ Returns the current machines private IP address (`192.168.*.*`, `10.0.0.*` etc.)
 ```python
 getPublicIP()
 ```
-Returns the current machines public IP address (The one you see from typing `Whats my IP` into Google)
+Returns the current machines public IP address (The one you see from typing `Whats my IP` into Google) (ret: str)
 
 #### Example:
 ```python
@@ -62,10 +62,10 @@ Returns the current machines public IP address (The one you see from typing `Wha
 ```python
 isUp(IP, port, timeout = 0.1)
 ```
-Checks if the specified IP address has the specified port open, returns boolean
-- `IP`: The IP to check
-- `port`: the port to scan
-- `timeout`: Timeout for giving up on response
+Checks if the specified IP address has the specified port open (ret: bool)
+- `IP`: (str) The IP to check
+- `port`: (int) the port to scan
+- `timeout`: (float) Timeout for giving up on response
 
 #### Example:
 ```python
@@ -82,7 +82,7 @@ True
 ```python
 getMACAddress()
 ```
-Returns the MAC address for the current machine
+Returns the MAC address for the current machine (ret: str)
 
 #### Example:
 ```python
@@ -99,7 +99,7 @@ Returns the MAC address for the current machine
 ```python
 getHostName()
 ```
-Returns the hostname for the current machine
+Returns the hostname for the current machine (ret: str)
 
 #### Example:
 ```python
@@ -116,9 +116,9 @@ Returns the hostname for the current machine
 ```python
 parsePortScan(results, localIP)
 ```
-Returns a multidimensional array containing hosts that have the specified port in `portScan()` open, and those who don't
-- `results`: the list that you get from `portScan()`
-- `localIP`: Your machines local IP address (You can get it from `getPrivateIP()`)
+Returns a multidimensional array containing hosts that have the specified port in `portScan()` open, and those who don't (ret: array)
+- `results`: (array) The list that you get from `portScan()`
+- `localIP`: (str) Your machines local IP address (You can get it from `getPrivateIP()`)
 
 #### Example:
 ```python
