@@ -64,8 +64,3 @@ def parsePortScan(results, localIP):
 		else:
 			hostsDown.append(localIP + str(i + 1))
 	return hostsUp, hostsDown
-
-if __name__ == "__main__":
-    print("MAC Address:\t" + getMACAddress())
-    print("Private IP:\t" + getPrivateIP())
-    print("Public IP:\t" + getPublicIP())
