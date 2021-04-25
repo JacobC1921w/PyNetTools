@@ -1,0 +1,1 @@
+Implement ping, and host scan using that
