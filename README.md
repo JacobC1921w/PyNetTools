@@ -7,7 +7,7 @@ A library of networking tools that you can use in your Python3 project
 ```python
 portScan(localIP, port, threads = 10, timeout = 0.1)
 ```
-A simple multi-threaded port scanner, that scans all hosts on the subnet for a specific port, returns a list, of which you need to use `parseScan()` to comprehend (ret: array)
+A simple multi-threaded port scanner, that scans all hosts on the subnet for a specific port, returns a list (ret: array)
 - `localIP`: (str) Your machines local IP address (You can get it from `getPrivateIP()`)
 - `port`: (int) The port to scan
 - `threads`: (int) How many threads for mutli-threading
@@ -17,8 +17,30 @@ A simple multi-threaded port scanner, that scans all hosts on the subnet for a s
 ```python
 >>> import PyNetTools
 >>> PyNetTools.portScan(PyNetTools.getPrivateIP(), 80)
-[True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]
+['192.168.0.1']
 >>> 
+```
+
+<br />
+<br />
+
+### Portscanning specific host
+```python
+getOpenPorts(IP, portRangeStop = 65535, portRangeStart = 1, threads = 10, timeout = 1.5)
+```
+Returns all open ports between the soecified `portRangeStop` and `portRangeStart`. NOTE: I've found the best and most accurate results come from setting `timeout=1.5`, but it may differ from person to person (ret: array)
+- `IP`: (str) The target IP to scan
+- `portRangeStop`: (int) The port to stop scanning at
+- `portRangeStart`: (int) The port to commence scanning at
+- `threads`: (int) The ammount of threads to use while portscanning
+- `timeout`: (float) The timout for checking if port is open (SEE ABOVE)
+
+### Example:
+```python
+>>> import PyNetTools
+>>> PyNetTools.getOpenPorts("192.168.0.1", 100)
+['53', '80']
+>>>
 ```
 
 <br />
@@ -62,15 +84,17 @@ Returns the current machines public IP address (The one you see from typing `Wha
 ```python
 ping(IP, timeout = 0.1)
 ```
-Checks if the specified IP address is online using unprivileged ICMP packets (ret: bool)
+Checks if the specified IP address is online using unprivileged ICMP packets (ret: str if online, bool if offline)
 - `IP`: (str) The IP to check
 - `timeout`: (float) Timeout for giving up on response
 
 #### Example:
 ```python
 >>> import PyNetTools
->>> PyNetTools.ping("192.168.0.1")
-True
+>>> PyNetTools.ping("192.168.0.1") # Is online
+"192.168.0.1"
+>>> PyNetTools.ping("192.168.0.2") # Isn't online
+False
 >>>
 ```
 
@@ -81,7 +105,7 @@ True
 ```python
 hostScan(localIP, threads = 10, timeout = 0.1)
 ```
-A simple multi-threaded host scanner, that sends unprivileged ICMP packets to all hosts on the subnet, returns a list, of which you need to use `parseScan()` to comprehend (ret: array)
+A simple multi-threaded host scanner, that sends unprivileged ICMP packets to all hosts on the subnet, returns a list (ret: array)
 - `localIP`: (str) Your machines local IP address (You can get it from `getPrivateIP()`)
 - `threads`: (int) How many threads for mutli-threading
 - `timeout`: (float) Timeout for giving up on response
@@ -90,8 +114,8 @@ A simple multi-threaded host scanner, that sends unprivileged ICMP packets to al
 ```python
 >>> import PyNetTools
 >>> PyNetTools.hostScan(PyNetTools.getPrivateIP())
-[True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False]
->>>
+['192.168.0.1', '192.168.0.3', '192.168.0.133', '192.168.0.147', '192.168.0.224']
+>>> 
 ```
 
 <br />
@@ -101,7 +125,7 @@ A simple multi-threaded host scanner, that sends unprivileged ICMP packets to al
 ```python
 isUp(IP, port, timeout = 0.1)
 ```
-Checks if the specified IP address has the specified port open (ret: bool)
+Checks if the specified IP address has the specified port open (ret: str if up, False if not)
 - `IP`: (str) The IP to check
 - `port`: (int) the port to scan
 - `timeout`: (float) Timeout for giving up on response
@@ -109,8 +133,10 @@ Checks if the specified IP address has the specified port open (ret: bool)
 #### Example:
 ```python
 >>> import PyNetTools
->>> PyNetTools.isUp("192.168.0.1", 80)
-True
+>>> PyNetTools.isUp("192.168.0.1", 80) # Is up
+"192.168.0.1:80"
+>>> PyNetTools.isUp("192.168.0.2", 80) # Isn't up
+False
 >>>
 ```
 
@@ -148,29 +174,3 @@ Returns the hostname for the current machine (ret: str)
 >>>
 ```
 
-<br />
-<br />
-
-### Parsing Port and Host Scan
-```python
-parseScan(results, localIP)
-```
-Returns a multidimensional array containing hosts that have the specified port in `portScan()` open, and those who don't, or the hosts in `ping()` that are online, and those who aren't (ret: array)
-- `results`: (array) The list that you get from `portScan()` or `ping()`
-- `localIP`: (str) Your machines local IP address (You can get it from `getPrivateIP()`)
-
-#### Example:
-```python
->>> import PyNetTools
->>> PyNetTools.parseScan(PyNetTools.portScan(PyNetTools.getPrivateIP(), 80), PyNetTools.getPrivateIP())
-(['192.168.0.1'], ['192.168.0.2', '192.168.0.3', '192.168.0.4', '192.168.0.5', '192.168.0.6', '192.168.0.7', '192.168.0.8', '192.168.0.9', '192.168.0.10', '192.168.0.11', '192.168.0.12', '192.168.0.13', '192.168.0.14', '192.168.0.15', '192.168.0.16', '192.168.0.17', '192.168.0.18', '192.168.0.19', '192.168.0.20', '192.168.0.21', '192.168.0.22', '192.168.0.23', '192.168.0.24', '192.168.0.25', '192.168.0.26', '192.168.0.27', '192.168.0.28', '192.168.0.29', '192.168.0.30', '192.168.0.31', '192.168.0.32', '192.168.0.33', '192.168.0.34', '192.168.0.35', '192.168.0.36', '192.168.0.37', '192.168.0.38', '192.168.0.39', '192.168.0.40', '192.168.0.41', '192.168.0.42', '192.168.0.43', '192.168.0.44', '192.168.0.45', '192.168.0.46', '192.168.0.47', '192.168.0.48', '192.168.0.49', '192.168.0.50', '192.168.0.51', '192.168.0.52', '192.168.0.53', '192.168.0.54', '192.168.0.55', '192.168.0.56', '192.168.0.57', '192.168.0.58', '192.168.0.59', '192.168.0.60', '192.168.0.61', '192.168.0.62', '192.168.0.63', '192.168.0.64', '192.168.0.65', '192.168.0.66', '192.168.0.67', '192.168.0.68', '192.168.0.69', '192.168.0.70', '192.168.0.71', '192.168.0.72', '192.168.0.73', '192.168.0.74', '192.168.0.75', '192.168.0.76', '192.168.0.77', '192.168.0.78', '192.168.0.79', '192.168.0.80', '192.168.0.81', '192.168.0.82', '192.168.0.83', '192.168.0.84', '192.168.0.85', '192.168.0.86', '192.168.0.87', '192.168.0.88', '192.168.0.89', '192.168.0.90', '192.168.0.91', '192.168.0.92', '192.168.0.93', '192.168.0.94', '192.168.0.95', '192.168.0.96', '192.168.0.97', '192.168.0.98', '192.168.0.99', '192.168.0.100', '192.168.0.101', '192.168.0.102', '192.168.0.103', '192.168.0.104', '192.168.0.105', '192.168.0.106', '192.168.0.107', '192.168.0.108', '192.168.0.109', '192.168.0.110', '192.168.0.111', '192.168.0.112', '192.168.0.113', '192.168.0.114', '192.168.0.115', '192.168.0.116', '192.168.0.117', '192.168.0.118', '192.168.0.119', '192.168.0.120', '192.168.0.121', '192.168.0.122', '192.168.0.123', '192.168.0.124', '192.168.0.125', '192.168.0.126', '192.168.0.127', '192.168.0.128', '192.168.0.129', '192.168.0.130', '192.168.0.131', '192.168.0.132', '192.168.0.133', '192.168.0.134', '192.168.0.135', '192.168.0.136', '192.168.0.137', '192.168.0.138', '192.168.0.139', '192.168.0.140', '192.168.0.141', '192.168.0.142', '192.168.0.143', '192.168.0.144', '192.168.0.145', '192.168.0.146', '192.168.0.147', '192.168.0.148', '192.168.0.149', '192.168.0.150', '192.168.0.151', '192.168.0.152', '192.168.0.153', '192.168.0.154', '192.168.0.155', '192.168.0.156', '192.168.0.157', '192.168.0.158', '192.168.0.159', '192.168.0.160', '192.168.0.161', '192.168.0.162', '192.168.0.163', '192.168.0.164', '192.168.0.165', '192.168.0.166', '192.168.0.167', '192.168.0.168', '192.168.0.169', '192.168.0.170', '192.168.0.171', '192.168.0.172', '192.168.0.173', '192.168.0.174', '192.168.0.175', '192.168.0.176', '192.168.0.177', '192.168.0.178', '192.168.0.179', '192.168.0.180', '192.168.0.181', '192.168.0.182', '192.168.0.183', '192.168.0.184', '192.168.0.185', '192.168.0.186', '192.168.0.187', '192.168.0.188', '192.168.0.189', '192.168.0.190', '192.168.0.191', '192.168.0.192', '192.168.0.193', '192.168.0.194', '192.168.0.195', '192.168.0.196', '192.168.0.197', '192.168.0.198', '192.168.0.199', '192.168.0.200', '192.168.0.201', '192.168.0.202', '192.168.0.203', '192.168.0.204', '192.168.0.205', '192.168.0.206', '192.168.0.207', '192.168.0.208', '192.168.0.209', '192.168.0.210', '192.168.0.211', '192.168.0.212', '192.168.0.213', '192.168.0.214', '192.168.0.215', '192.168.0.216', '192.168.0.217', '192.168.0.218', '192.168.0.219', '192.168.0.220', '192.168.0.221', '192.168.0.222', '192.168.0.223', '192.168.0.224', '192.168.0.225', '192.168.0.226', '192.168.0.227', '192.168.0.228', '192.168.0.229', '192.168.0.230', '192.168.0.231', '192.168.0.232', '192.168.0.233', '192.168.0.234', '192.168.0.235', '192.168.0.236', '192.168.0.237', '192.168.0.238', '192.168.0.239', '192.168.0.240', '192.168.0.241', '192.168.0.242', '192.168.0.243', '192.168.0.244', '192.168.0.245', '192.168.0.246', '192.168.0.247', '192.168.0.248', '192.168.0.249', '192.168.0.250', '192.168.0.251', '192.168.0.252', '192.168.0.253', '192.168.0.254', '192.168.0.255'])
->>> PyNetTools.parseScan(PyNetTools.portScan(PyNetTools.getPrivateIP(), 80), PyNetTools.getPrivateIP())[0]
-['192.168.0.1']
->>> PyNetTools.parseScan(PyNetTools.portScan(PyNetTools.getPrivateIP(), 80), PyNetTools.getPrivateIP())[1]
-['192.168.0.2', '192.168.0.3', '192.168.0.4', '192.168.0.5', '192.168.0.6', '192.168.0.7', '192.168.0.8', '192.168.0.9', '192.168.0.10', '192.168.0.11', '192.168.0.12', '192.168.0.13', '192.168.0.14', '192.168.0.15', '192.168.0.16', '192.168.0.17', '192.168.0.18', '192.168.0.19', '192.168.0.20', '192.168.0.21', '192.168.0.22', '192.168.0.23', '192.168.0.24', '192.168.0.25', '192.168.0.26', '192.168.0.27', '192.168.0.28', '192.168.0.29', '192.168.0.30', '192.168.0.31', '192.168.0.32', '192.168.0.33', '192.168.0.34', '192.168.0.35', '192.168.0.36', '192.168.0.37', '192.168.0.38', '192.168.0.39', '192.168.0.40', '192.168.0.41', '192.168.0.42', '192.168.0.43', '192.168.0.44', '192.168.0.45', '192.168.0.46', '192.168.0.47', '192.168.0.48', '192.168.0.49', '192.168.0.50', '192.168.0.51', '192.168.0.52', '192.168.0.53', '192.168.0.54', '192.168.0.55', '192.168.0.56', '192.168.0.57', '192.168.0.58', '192.168.0.59', '192.168.0.60', '192.168.0.61', '192.168.0.62', '192.168.0.63', '192.168.0.64', '192.168.0.65', '192.168.0.66', '192.168.0.67', '192.168.0.68', '192.168.0.69', '192.168.0.70', '192.168.0.71', '192.168.0.72', '192.168.0.73', '192.168.0.74', '192.168.0.75', '192.168.0.76', '192.168.0.77', '192.168.0.78', '192.168.0.79', '192.168.0.80', '192.168.0.81', '192.168.0.82', '192.168.0.83', '192.168.0.84', '192.168.0.85', '192.168.0.86', '192.168.0.87', '192.168.0.88', '192.168.0.89', '192.168.0.90', '192.168.0.91', '192.168.0.92', '192.168.0.93', '192.168.0.94', '192.168.0.95', '192.168.0.96', '192.168.0.97', '192.168.0.98', '192.168.0.99', '192.168.0.100', '192.168.0.101', '192.168.0.102', '192.168.0.103', '192.168.0.104', '192.168.0.105', '192.168.0.106', '192.168.0.107', '192.168.0.108', '192.168.0.109', '192.168.0.110', '192.168.0.111', '192.168.0.112', '192.168.0.113', '192.168.0.114', '192.168.0.115', '192.168.0.116', '192.168.0.117', '192.168.0.118', '192.168.0.119', '192.168.0.120', '192.168.0.121', '192.168.0.122', '192.168.0.123', '192.168.0.124', '192.168.0.125', '192.168.0.126', '192.168.0.127', '192.168.0.128', '192.168.0.129', '192.168.0.130', '192.168.0.131', '192.168.0.132', '192.168.0.133', '192.168.0.134', '192.168.0.135', '192.168.0.136', '192.168.0.137', '192.168.0.138', '192.168.0.139', '192.168.0.140', '192.168.0.141', '192.168.0.142', '192.168.0.143', '192.168.0.144', '192.168.0.145', '192.168.0.146', '192.168.0.147', '192.168.0.148', '192.168.0.149', '192.168.0.150', '192.168.0.151', '192.168.0.152', '192.168.0.153', '192.168.0.154', '192.168.0.155', '192.168.0.156', '192.168.0.157', '192.168.0.158', '192.168.0.159', '192.168.0.160', '192.168.0.161', '192.168.0.162', '192.168.0.163', '192.168.0.164', '192.168.0.165', '192.168.0.166', '192.168.0.167', '192.168.0.168', '192.168.0.169', '192.168.0.170', '192.168.0.171', '192.168.0.172', '192.168.0.173', '192.168.0.174', '192.168.0.175', '192.168.0.176', '192.168.0.177', '192.168.0.178', '192.168.0.179', '192.168.0.180', '192.168.0.181', '192.168.0.182', '192.168.0.183', '192.168.0.184', '192.168.0.185', '192.168.0.186', '192.168.0.187', '192.168.0.188', '192.168.0.189', '192.168.0.190', '192.168.0.191', '192.168.0.192', '192.168.0.193', '192.168.0.194', '192.168.0.195', '192.168.0.196', '192.168.0.197', '192.168.0.198', '192.168.0.199', '192.168.0.200', '192.168.0.201', '192.168.0.202', '192.168.0.203', '192.168.0.204', '192.168.0.205', '192.168.0.206', '192.168.0.207', '192.168.0.208', '192.168.0.209', '192.168.0.210', '192.168.0.211', '192.168.0.212', '192.168.0.213', '192.168.0.214', '192.168.0.215', '192.168.0.216', '192.168.0.217', '192.168.0.218', '192.168.0.219', '192.168.0.220', '192.168.0.221', '192.168.0.222', '192.168.0.223', '192.168.0.224', '192.168.0.225', '192.168.0.226', '192.168.0.227', '192.168.0.228', '192.168.0.229', '192.168.0.230', '192.168.0.231', '192.168.0.232', '192.168.0.233', '192.168.0.234', '192.168.0.235', '192.168.0.236', '192.168.0.237', '192.168.0.238', '192.168.0.239', '192.168.0.240', '192.168.0.241', '192.168.0.242', '192.168.0.243', '192.168.0.244', '192.168.0.245', '192.168.0.246', '192.168.0.247', '192.168.0.248', '192.168.0.249', '192.168.0.250', '192.168.0.251', '192.168.0.252', '192.168.0.253', '192.168.0.254', '192.168.0.255']
->>> PyNetTools.parseScan(PyNetTools.hostScan(PyNetTools.getPrivateIP()), PyNetTools.getPrivateIP())[0]
-['192.168.0.1', '192.168.0.3', '192.168.0.133', '192.168.0.147']
->>> PyNetTools.parseScan(PyNetTools.hostScan(PyNetTools.getPrivateIP()), PyNetTools.getPrivateIP())[1]
-['192.168.0.2', '192.168.0.4', '192.168.0.5', '192.168.0.6', '192.168.0.7', '192.168.0.8', '192.168.0.9', '192.168.0.10', '192.168.0.11', '192.168.0.12', '192.168.0.13', '192.168.0.14', '192.168.0.15', '192.168.0.16', '192.168.0.17', '192.168.0.18', '192.168.0.19', '192.168.0.20', '192.168.0.21', '192.168.0.22', '192.168.0.23', '192.168.0.24', '192.168.0.25', '192.168.0.26', '192.168.0.27', '192.168.0.28', '192.168.0.29', '192.168.0.30', '192.168.0.31', '192.168.0.32', '192.168.0.33', '192.168.0.34', '192.168.0.35', '192.168.0.36', '192.168.0.37', '192.168.0.38', '192.168.0.39', '192.168.0.40', '192.168.0.41', '192.168.0.42', '192.168.0.43', '192.168.0.44', '192.168.0.45', '192.168.0.46', '192.168.0.47', '192.168.0.48', '192.168.0.49', '192.168.0.50', '192.168.0.51', '192.168.0.52', '192.168.0.53', '192.168.0.54', '192.168.0.55', '192.168.0.56', '192.168.0.57', '192.168.0.58', '192.168.0.59', '192.168.0.60', '192.168.0.61', '192.168.0.62', '192.168.0.63', '192.168.0.64', '192.168.0.65', '192.168.0.66', '192.168.0.67', '192.168.0.68', '192.168.0.69', '192.168.0.70', '192.168.0.71', '192.168.0.72', '192.168.0.73', '192.168.0.74', '192.168.0.75', '192.168.0.76', '192.168.0.77', '192.168.0.78', '192.168.0.79', '192.168.0.80', '192.168.0.81', '192.168.0.82', '192.168.0.83', '192.168.0.84', '192.168.0.85', '192.168.0.86', '192.168.0.87', '192.168.0.88', '192.168.0.89', '192.168.0.90', '192.168.0.91', '192.168.0.92', '192.168.0.93', '192.168.0.94', '192.168.0.95', '192.168.0.96', '192.168.0.97', '192.168.0.98', '192.168.0.99', '192.168.0.100', '192.168.0.101', '192.168.0.102', '192.168.0.103', '192.168.0.104', '192.168.0.105', '192.168.0.106', '192.168.0.107', '192.168.0.108', '192.168.0.109', '192.168.0.110', '192.168.0.111', '192.168.0.112', '192.168.0.113', '192.168.0.114', '192.168.0.115', '192.168.0.116', '192.168.0.117', '192.168.0.118', '192.168.0.119', '192.168.0.120', '192.168.0.121', '192.168.0.122', '192.168.0.123', '192.168.0.124', '192.168.0.125', '192.168.0.126', '192.168.0.127', '192.168.0.128', '192.168.0.129', '192.168.0.130', '192.168.0.131', '192.168.0.132', '192.168.0.134', '192.168.0.135', '192.168.0.136', '192.168.0.137', '192.168.0.138', '192.168.0.139', '192.168.0.140', '192.168.0.141', '192.168.0.142', '192.168.0.143', '192.168.0.144', '192.168.0.145', '192.168.0.146', '192.168.0.148', '192.168.0.149', '192.168.0.150', '192.168.0.151', '192.168.0.152', '192.168.0.153', '192.168.0.154', '192.168.0.155', '192.168.0.156', '192.168.0.157', '192.168.0.158', '192.168.0.159', '192.168.0.160', '192.168.0.161', '192.168.0.162', '192.168.0.163', '192.168.0.164', '192.168.0.165', '192.168.0.166', '192.168.0.167', '192.168.0.168', '192.168.0.169', '192.168.0.170', '192.168.0.171', '192.168.0.172', '192.168.0.173', '192.168.0.174', '192.168.0.175', '192.168.0.176', '192.168.0.177', '192.168.0.178', '192.168.0.179', '192.168.0.180', '192.168.0.181', '192.168.0.182', '192.168.0.183', '192.168.0.184', '192.168.0.185', '192.168.0.186', '192.168.0.187', '192.168.0.188', '192.168.0.189', '192.168.0.190', '192.168.0.191', '192.168.0.192', '192.168.0.193', '192.168.0.194', '192.168.0.195', '192.168.0.196', '192.168.0.197', '192.168.0.198', '192.168.0.199', '192.168.0.200', '192.168.0.201', '192.168.0.202', '192.168.0.203', '192.168.0.204', '192.168.0.205', '192.168.0.206', '192.168.0.207', '192.168.0.208', '192.168.0.209', '192.168.0.210', '192.168.0.211', '192.168.0.212', '192.168.0.213', '192.168.0.214', '192.168.0.215', '192.168.0.216', '192.168.0.217', '192.168.0.218', '192.168.0.219', '192.168.0.220', '192.168.0.221', '192.168.0.222', '192.168.0.223', '192.168.0.225', '192.168.0.226', '192.168.0.227', '192.168.0.228', '192.168.0.229', '192.168.0.230', '192.168.0.231', '192.168.0.232', '192.168.0.233', '192.168.0.234', '192.168.0.235', '192.168.0.236', '192.168.0.237', '192.168.0.238', '192.168.0.239', '192.168.0.240', '192.168.0.241', '192.168.0.242', '192.168.0.243', '192.168.0.244', '192.168.0.245', '192.168.0.246', '192.168.0.247', '192.168.0.248', '192.168.0.249', '192.168.0.250', '192.168.0.251', '192.168.0.252', '192.168.0.253', '192.168.0.254', '192.168.0.255']
->>>
-```
