@@ -30,6 +30,17 @@ def getOpenPorts(IP, portRangeStop = 65535, portRangeStart = 1, threads = 10, ti
             hosts.append(scanResults[i].split(':')[1])
     return hosts
 
+def getOpenPortsFromList(IP, portList, threads = 10, timeout = 1.5):
+    threadPool = Pool(threads)
+    scanResults = threadPool.starmap(isUp, [(IP, i, timeout) for i in portList])
+    threadPool.close()
+    threadPool.join()
+    hosts = []
+    for i in range(0, len(scanResults)):
+        if scanResults[i]:
+            hosts.append(scanResults[i].split(':')[1])
+    return hosts
+
 def getPrivateIP():
     try:
         tempSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
