@@ -7,7 +7,7 @@ from requests import get
 from uuid import getnode
 from icmplib import ping as ICMPLibPing
 
-def portScan(localIP, port, threads = 10, timeout = 0.1):
+def portScan(localIP, port, threads = 10, timeout = 0.5):
     localIP = '.'.join(localIP.split('.')[0:-1]) + '.'
     threadPool = Pool(threads)
     scanResults = threadPool.starmap(isUp, zip([localIP + str(i) for i in range(1, 256)], repeat(port), repeat(timeout)))
@@ -46,13 +46,13 @@ def getPublicIP():
     except:
         return "0.0.0.0"
 
-def ping(IP, timeout = 0.1):
+def ping(IP, timeout = 0.5):
     if ICMPLibPing(str(IP), 1, 1, float(timeout), privileged=False).is_alive:
         return IP
     else:
         return False
 
-def hostScan(localIP, threads = 10, timeout = 0.1):
+def hostScan(localIP, threads = 10, timeout = 0.5):
     localIP = '.'.join(localIP.split('.')[0:-1]) + '.'
     threadPool = Pool(threads)
     scanResults = threadPool.starmap(ping, zip([localIP + str(i) for i in range(1, 256)], repeat(timeout)))
@@ -64,7 +64,7 @@ def hostScan(localIP, threads = 10, timeout = 0.1):
             hosts.append(scanResults[i])
     return hosts
 
-def isUp(IP, port, timeout = 0.1):
+def isUp(IP, port, timeout = 0.5):
     try:
         tempSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tempSocket.settimeout(timeout)
