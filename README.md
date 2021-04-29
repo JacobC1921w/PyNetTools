@@ -28,18 +28,39 @@ A simple multi-threaded port scanner, that scans all hosts on the subnet for a s
 ```python
 getOpenPorts(IP, portRangeStop = 65535, portRangeStart = 1, threads = 10, timeout = 1.5)
 ```
-Returns all open ports between the soecified `portRangeStop` and `portRangeStart`. NOTE: I've found the best and most accurate results come from setting `timeout=1.5`, but it may differ from person to person (ret: array)
+Returns all open ports between the specified `portRangeStop` and `portRangeStart`. NOTE: I've found the best and most accurate results come from setting `timeout=1.5`, but it may differ from person to person (ret: int array)
 - `IP`: (str) The target IP to scan
 - `portRangeStop`: (int) The port to stop scanning at
 - `portRangeStart`: (int) The port to commence scanning at
-- `threads`: (int) The ammount of threads to use while portscanning
+- `threads`: (int) The amount of threads to use while portscanning
 - `timeout`: (float) The timout for checking if port is open (SEE ABOVE)
 
-### Example:
+#### Example:
 ```python
 >>> import PyNetTools
 >>> PyNetTools.getOpenPorts("192.168.0.1", 100)
-['53', '80']
+[53, 80]
+>>>
+```
+
+<br />
+<br />
+
+### Portscanning specific host (with list of ports)
+```python
+getOpenPortsFromList(IP, portList, threads = 10, timeout = 1.5)
+```
+Returns all open ports within `portList`. (ret: int array)
+- `IP`: (str) The target IP to scan
+- `portList`: (int list) list of integers to scan
+- `threads`: (int) The amount of threads to use while portscanning
+- `timeout`: (float) The timeout for checking if port is open
+
+#### Example:
+```python
+>>> import PyNetTools
+>>> PyNetTools.getOpenPortsFromList("192.168.0.1", [80, 22, 21, 8008])
+[80]
 >>>
 ```
 

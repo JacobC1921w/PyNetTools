@@ -27,7 +27,7 @@ def getOpenPorts(IP, portRangeStop = 65535, portRangeStart = 1, threads = 10, ti
     hosts = []
     for i in range(0, len(scanResults)):
         if scanResults[i]:
-            hosts.append(scanResults[i].split(':')[1])
+            hosts.append(int(scanResults[i].split(':')[1]))
     return hosts
 
 def getOpenPortsFromList(IP, portList, threads = 10, timeout = 1.5):
@@ -38,7 +38,7 @@ def getOpenPortsFromList(IP, portList, threads = 10, timeout = 1.5):
     hosts = []
     for i in range(0, len(scanResults)):
         if scanResults[i]:
-            hosts.append(scanResults[i].split(':')[1])
+            hosts.append(int(scanResults[i].split(':')[1]))
     return hosts
 
 def getPrivateIP():
