@@ -66,7 +66,7 @@ def ping(IP, timeout = 0.5):
 def hostScan(localIP, threads = 10, timeout = 0.5):
     localIP = '.'.join(localIP.split('.')[0:-1]) + '.'
     threadPool = Pool(threads)
-    scanResults = threadPool.starmap(ping, zip([localIP + str(i) for i in range(1, 256)], repeat(timeout)))
+    scanResults = threadPool.starmap(ping, zip([localIP + str(i) for i in range(1, 255)], repeat(timeout)))
     threadPool.close()
     threadPool.join()
     hosts = []
